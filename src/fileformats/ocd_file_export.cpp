@@ -610,6 +610,12 @@ OcdFileExport::OcdFileExport(const QString& path, const Map* map, const MapView*
 OcdFileExport::~OcdFileExport() = default;
 
 
+bool OcdFileExport::needsObjectExtents() const
+{
+	return true;
+}
+
+
 
 template<class Encoding>
 QTextCodec* OcdFileExport::determineEncoding()

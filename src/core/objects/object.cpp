@@ -488,6 +488,17 @@ bool Object::update() const
 		options = QFlag(map->renderableOptions());
 		if (extent.isValid())
 			map->setObjectAreaDirty(extent);
+		
+		if (!map->areRenderablesEnabled())
+		{
+			// This map is never drawn, so building the renderables would be
+			// pure overhead. Note that no extent is calculated in this mode.
+			output.deleteRenderables();
+			extent = QRectF();
+			updateEvent();
+			output_dirty = false;
+			return false;
+		}
 	}
 	
 	output.deleteRenderables();

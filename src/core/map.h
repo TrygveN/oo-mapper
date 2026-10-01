@@ -1302,6 +1302,36 @@ public:
 	/** Returns the rendering options as an int representing Symbol::RenderableOptions. */
 	int renderableOptions() const;
 	
+	/**
+	 * Returns if the map generates renderables for its objects.
+	 * 
+	 * Renderables are needed for drawing the map. A map which is never drawn
+	 * (e.g. a map which is loaded, modified and saved again by a command line
+	 * tool) does not need them, and building the renderables for a map with a
+	 * large number of objects may need a great deal of memory.
+	 * 
+	 * See setRenderablesEnabled().
+	 */
+	bool areRenderablesEnabled() const;
+	
+	/**
+	 * Enables or disables the generation of renderables for this map.
+	 * 
+	 * While renderables are disabled, Object::update() does not create any
+	 * renderables and does not add them to the map. As a consequence,
+	 * Object::getExtent() and Map::calculateExtent() do not provide meaningful
+	 * results: they return invalid/empty rectangles. Exporters and other
+	 * functions which rely on object extents must not be used with a map in
+	 * this mode.
+	 * 
+	 * Renderables which have been created before can be discarded by calling
+	 * this function and then Map::updateObjects(). Re-enabling renderables
+	 * makes the map generate them again on the next update.
+	 * 
+	 * Renderables are enabled by default.
+	 */
+	void setRenderablesEnabled(bool enabled);
+	
 	
 	/** Returns true if the map has a print configuration. */
 	bool hasPrinterConfig() const noexcept;
@@ -1630,6 +1660,7 @@ private:
 	MapGrid grid;
 	
 	int renderable_options;
+	bool renderables_enabled;
 	
 	QScopedPointer<MapPrinterConfig> printer_config;
 	

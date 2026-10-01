@@ -707,6 +707,8 @@ OgrFileImport::OgrFileImport(const QString& path, Map* map, MapView* view, UnitT
 	
 	setOption(QLatin1String{ "Separate layers" }, QVariant{ false });
 	
+	setOption(QLatin1String{ "Update grivation" }, QVariant{ true });
+	
 	// OGR feature style defaults
 	default_pen_color = new MapColor(QLatin1String{"Purple"}, 0); 
 	default_pen_color->setSpotColorName(QLatin1String{"PURPLE"});
@@ -835,6 +837,18 @@ bool OgrFileImport::importImplementation()
 		map_srs = importGeoreferencing(data_source.get());
 	else
 		map_srs = srsFromMap();
+	
+	if (!option(QLatin1String("Update grivation")).toBool())
+	{
+		// The map must not be rotated by the grid convergence. This has to
+		// happen before the objects are imported, because they are placed with
+		// this transformation. Setting the grivation rather than zeroing it
+		// keeps grivation = declination - convergence intact, so that the map
+		// is not adjusted (with a warning) when it is loaded again.
+		auto georef = map->getGeoreferencing();  // copy
+		georef.setGrivation(0.0);
+		map->setGeoreferencing(georef);
+	}
 	
 	importStyles(data_source.get());
 

@@ -181,12 +181,18 @@ public:
 	/**
 	 * If the output_dirty flag is set, regenerates output and extent, and updates the object's map (if set).
 	 * 
+	 * If renderables are disabled for the object's map, no output and no extent
+	 * is generated, and the map is not updated.
+	 * 
 	 * Returns true if output was dirty.
 	 */
 	bool update() const;
 	
 	/**
 	 * Always regenerates output and extent, and updates the object's map (if set).
+	 * 
+	 * If renderables are disabled for the object's map, no output and no extent
+	 * is generated, and the map is not updated.
 	 */
 	void forceUpdate() const;
 	

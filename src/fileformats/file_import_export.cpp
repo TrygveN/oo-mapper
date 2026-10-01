@@ -278,6 +278,12 @@ void Importer::validate()
 Exporter::~Exporter() = default;
 
 
+bool Exporter::needsObjectExtents() const
+{
+	return false;
+}
+
+
 bool Exporter::doExport()
 {
 	std::unique_ptr<QSaveFile> managed_file;

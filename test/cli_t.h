@@ -50,6 +50,25 @@ private slots:
 	void testConvertFormatIdOverridesExtension();
 	void testExportRejectsNativeFormatId();
 	void testConvertRejectsUnknownFormatId();
+
+	void testCreateMapMissingInput();
+	void testCreateMapMissingSymbols();
+	void testCreateMapMissingCrt();
+	void testCreateMapMissingOutput();
+	void testCreateMapInvalidInput();
+	void testCreateMapPrintAreaWrongPartCount();
+	void testCreateMapPrintAreaNonNumeric();
+	void testCreateMapPrintAreaNonPositiveSize();
+	void testCreateMapWithoutPrintArea();
+	void testCreateMapPrintArea();
+	void testCreateMapPrintAreaUtm();
+	void testCreateMapPrintAreaUtmNonUtmInput();
+	void testCreateMapPrintAreaUtmInvalidFormat();
+	void testCreateMapPrintAreaUtmInvertedCorners();
+	void testCreateMapPrintAreaOptionsExclusive();
+	void testCreateMapGrivationByDefault();
+	void testCreateMapNoGrivation();
+	void testCreateMapNoGrivationNonProjected();
 };
 
 #endif

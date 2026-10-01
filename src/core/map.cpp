@@ -426,6 +426,7 @@ Map::Map()
  , renderables(new MapRenderables(this))
  , selection_renderables(new MapRenderables(this))
  , renderable_options(Symbol::RenderNormal)
+ , renderables_enabled(true)
  , printer_config(nullptr)
 {
 	if (!static_initialized)
@@ -2431,6 +2432,24 @@ void Map::setBaselineViewEnabled(bool enabled)
 	else
 		renderable_options &= ~Symbol::RenderBaselines;
 }
+
+
+bool Map::areRenderablesEnabled() const
+{
+	return renderables_enabled;
+}
+
+void Map::setRenderablesEnabled(bool enabled)
+{
+	renderables_enabled = enabled;
+	if (!enabled)
+	{
+		// Drop the renderables which are currently registered for this map.
+		// The objects keep their own references until they are updated again.
+		renderables->clear();
+	}
+}
+
 
 
 const MapPrinterConfig& Map::printerConfig()

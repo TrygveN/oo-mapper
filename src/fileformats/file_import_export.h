@@ -303,6 +303,20 @@ public:
 	bool doExport();
 	
 	
+	/**
+	 * Returns true if this exporter needs the extents of the map's objects.
+	 * 
+	 * Object extents are derived from the objects' renderables. Most
+	 * exporters do not need these extents, and building the renderables for
+	 * all objects of a large map takes a lot of time and memory. An exporter
+	 * which does not need the extents should keep the default implementation
+	 * of this function, so that clients can skip the renderables.
+	 * 
+	 * This function must be called before the export starts.
+	 */
+	virtual bool needsObjectExtents() const;
+	
+	
 protected:
 	/**
 	 * Actual implementation of the export.

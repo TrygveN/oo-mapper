@@ -132,6 +132,11 @@ public:
 	
 	~OcdFileExport() override;
 	
+	/**
+	 * OCD export needs the objects' extents for calculating the area offset.
+	 */
+	bool needsObjectExtents() const override;
+	
 protected:
 	/**
 	 * Exports an OCD file.
